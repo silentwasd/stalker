@@ -15,7 +15,7 @@ class ProxyController extends Controller
 
         $headers = collect($request->headers->all())
             ->map(fn($item) => $item[0])
-            ->map(fn($item) => Str::replace('stalker.vrkitty.ru', 'yastalker.com', $item));
+            ->map(fn($item) => Str::replace('xn--80akod1abh6h.xn--p1ai', 'yastalker.com', $item));
 
         //Log::info(var_export($headers, true));
 
