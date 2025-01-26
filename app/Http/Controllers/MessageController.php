@@ -10,7 +10,7 @@ class MessageController extends Controller
 {
     public function index()
     {
-        return MessageResource::collection(Message::latest()->get());
+        return MessageResource::collection(Message::latest()->take(100)->get());
     }
 
     public function store(Request $request)
