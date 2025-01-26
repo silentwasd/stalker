@@ -14,16 +14,16 @@ class TruncateMessagesCommand extends Command
 
     public function handle(): void
     {
-        $count = Message::count();
+        $count = Message::whereNotNull('file')->count();
 
         if ($count <= 100)
             return;
 
-        foreach (Message::oldest()->take($count - 100)->get() as $message) {
-            if ($message->file)
-                Storage::disk('public')->delete($message->file);
+        foreach (Message::oldest()->whereNotNull('file')->take($count - 100)->get() as $message) {
+            Storage::disk('public')->delete($message->file);
 
-            $message->delete();
+            if (!$message->text)
+                $message->delete();
         }
     }
 }
